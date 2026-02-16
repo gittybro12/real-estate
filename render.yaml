@@ -1,0 +1,14 @@
+﻿services:
+  - type: web
+    name: havenkeys
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 120
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+    disk:
+      name: havenkeys-data
+      mountPath: /opt/render/project/src
+      sizeGB: 1
